@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Received — The 15-Month Chit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#F5F5F7;
+    --ink:#1D1D1F;
+    --ink-soft:#6E6E73;
+    --line:#E5E5E7;
+    --blue:#0066FF;
+    --green:#1D9A6C;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;max-width:100%;overflow-x:hidden;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--bg-soft);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+    min-height:100vh;
+    display:flex;flex-direction:column;
+  }
+
+  nav.tabs{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs ul{
+    list-style:none;margin:0;padding:0 16px;
+    max-width:1100px;margin:0 auto;
+    display:flex;gap:4px;justify-content:center;align-items:center;
+    overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  nav.tabs ul::-webkit-scrollbar{display:none;}
+  nav.tabs li{flex:0 0 auto;}
+  nav.tabs a.nav-link{
+    font-family:'Inter',sans-serif;
+    font-size:0.84rem;font-weight:500;
+    color:var(--ink-soft);text-decoration:none;
+    display:block;padding:18px 16px;white-space:nowrap;
+    position:relative;transition:color .2s ease;
+  }
+  nav.tabs a.nav-link::after{
+    content:"";position:absolute;left:16px;right:16px;bottom:0;
+    height:2px;background:var(--ink);
+    transform:scaleX(0);transform-origin:center;transition:transform .25s ease;
+  }
+  nav.tabs a.nav-link:hover{color:var(--ink);}
+  nav.tabs a.register-btn{
+    font-family:'Inter',sans-serif;
+    font-size:0.84rem;font-weight:600;color:#fff;
+    background:var(--blue);text-decoration:none;
+    display:block;padding:9px 18px;border-radius:10px;
+    white-space:nowrap;margin-left:8px;
+    transition:background .2s ease;
+  }
+  nav.tabs a.register-btn:hover{background:#0052CC;}
+
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 24px;}
+
+  .card{
+    background:#fff;border-radius:28px;
+    box-shadow:var(--card-shadow);
+    padding:56px 52px;
+    max-width:520px;width:100%;
+    text-align:center;
+  }
+
+  .check-circle{
+    width:72px;height:72px;border-radius:50%;
+    background:#F0FAF5;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 28px;
+  }
+  .check-circle svg{width:36px;height:36px;}
+
+  h1{
+    font-size:clamp(1.8rem,4vw,2.4rem);
+    font-weight:800;letter-spacing:-0.03em;
+    margin:0 0 14px;
+    background:linear-gradient(180deg,#1D1D1F 0%,#4A4A4E 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  p{font-size:1.05rem;color:var(--ink-soft);line-height:1.65;margin:0 0 36px;}
+
+  .next-steps{
+    background:var(--bg-soft);border-radius:16px;
+    padding:22px 24px;text-align:left;margin-bottom:36px;
+  }
+  .next-steps h3{
+    font-size:0.8rem;font-weight:700;color:var(--blue);
+    text-transform:uppercase;letter-spacing:0.06em;margin:0 0 14px;
+  }
+  .next-steps ol{
+    margin:0;padding-left:22px;
+    color:var(--ink-soft);font-size:0.93rem;line-height:1.8;
+  }
+  .next-steps li strong{color:var(--ink);}
+
+  .back-btn{
+    display:inline-block;
+    background:var(--blue);color:#fff;
+    text-decoration:none;font-weight:700;font-size:0.97rem;
+    padding:14px 32px;border-radius:12px;
+    transition:background .2s ease,transform .15s ease;
+  }
+  .back-btn:hover{background:#0052CC;transform:translateY(-2px);}
+
+  footer{
+    text-align:center;padding:36px 24px 48px;
+    color:var(--ink-soft);font-size:0.85rem;
+    border-top:1px solid var(--line);
+  }
+
+  @media(max-width:560px){
+    .card{padding:36px 24px;}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="tabs" aria-label="Site navigation">
+    <ul>
+      <li><a href="/" class="nav-link">Overview</a></li>
+      <li><a href="/#monthly-breakdown" class="nav-link">Monthly Ledger</a></li>
+      <li><a href="/#chit-rules" class="nav-link">Rules</a></li>
+      <li><a href="/#why-join" class="nav-link">Why Join</a></li>
+      <li><a href="/#payment-works" class="nav-link">How It Works</a></li>
+      <li><a href="/register" class="nav-link register-btn">Register</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="card">
+      <div class="check-circle">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="18" cy="18" r="18" fill="#1D9A6C" opacity="0.15"/>
+          <path d="M10 18.5L15.5 24L26 12" stroke="#1D9A6C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h1>You're all set!</h1>
+      <p>Your registration has been received. The organiser will review your details and reach out within <strong style="-webkit-text-fill-color:var(--ink); color:var(--ink);">2 business days</strong> to confirm your spot.</p>
+
+      <div class="next-steps">
+        <h3>What happens next</h3>
+        <ol>
+          <li><strong>Review</strong> — the organiser checks your registration</li>
+          <li><strong>Confirmation</strong> — you'll receive a direct message or email</li>
+          <li><strong>Slot selection</strong> — you'll be asked to lock in your 1st &amp; 2nd lift month choices</li>
+          <li><strong>Fund starts</strong> — monthly contributions begin on the agreed date</li>
+        </ol>
+      </div>
+
+      <a href="/" class="back-btn">Back to overview</a>
+    </div>
+  </main>
+
+  <footer>15-Month Chit Fund — Thank you for registering</footer>
+
+</body>
+</html>

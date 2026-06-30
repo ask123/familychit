@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — The 15-Month Chit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#F5F5F7;
+    --ink:#1D1D1F;
+    --ink-soft:#6E6E73;
+    --line:#E5E5E7;
+    --blue:#0066FF;
+    --green:#1D9A6C;
+    --red:#E0383B;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;max-width:100%;overflow-x:hidden;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--bg-soft);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+    min-height:100vh;
+  }
+
+  /* ---- Nav ---- */
+  nav.tabs{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs ul{
+    list-style:none;margin:0;padding:0 16px;
+    max-width:1100px;margin:0 auto;
+    display:flex;gap:4px;justify-content:center;align-items:center;
+    overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  nav.tabs ul::-webkit-scrollbar{display:none;}
+  nav.tabs li{flex:0 0 auto;}
+  nav.tabs a.nav-link{
+    font-family:'Inter',sans-serif;
+    font-size:0.84rem;font-weight:500;
+    color:var(--ink-soft);
+    text-decoration:none;
+    display:block;
+    padding:18px 16px;
+    white-space:nowrap;
+    position:relative;
+    transition:color .2s ease;
+  }
+  nav.tabs a.nav-link::after{
+    content:"";position:absolute;left:16px;right:16px;bottom:0;
+    height:2px;background:var(--ink);
+    transform:scaleX(0);transform-origin:center;
+    transition:transform .25s ease;
+  }
+  nav.tabs a.nav-link:hover{color:var(--ink);}
+  nav.tabs a.nav-link.active{color:var(--ink);font-weight:600;}
+  nav.tabs a.nav-link.active::after{transform:scaleX(1);}
+  nav.tabs a.register-btn{
+    font-family:'Inter',sans-serif;
+    font-size:0.84rem;font-weight:600;
+    color:#fff;
+    background:var(--blue);
+    text-decoration:none;
+    display:block;
+    padding:9px 18px;
+    border-radius:10px;
+    white-space:nowrap;
+    margin-left:8px;
+    transition:background .2s ease,transform .15s ease;
+  }
+  nav.tabs a.register-btn:hover{background:#0052CC;transform:translateY(-1px);}
+
+  /* ---- Page wrapper ---- */
+  .page{
+    max-width:640px;margin:0 auto;
+    padding:60px 24px 100px;
+  }
+
+  .page-head{margin-bottom:44px;text-align:center;}
+  .page-head .eyebrow{
+    font-size:0.84rem;font-weight:600;color:var(--blue);
+    text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;
+  }
+  .page-head h1{
+    font-size:clamp(2rem,5vw,3rem);
+    font-weight:800;letter-spacing:-0.03em;margin:0 0 14px;
+    background:linear-gradient(180deg,#1D1D1F 0%,#4A4A4E 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .page-head p{
+    font-size:1.05rem;color:var(--ink-soft);
+    max-width:480px;margin:0 auto;line-height:1.6;
+  }
+
+  /* ---- Card ---- */
+  .form-card{
+    background:#fff;
+    border-radius:24px;
+    box-shadow:var(--card-shadow);
+    padding:44px 48px;
+  }
+
+  /* ---- Form fields ---- */
+  .field{margin-bottom:24px;}
+  .field:last-of-type{margin-bottom:0;}
+  label{
+    display:block;
+    font-size:0.84rem;font-weight:600;
+    margin-bottom:7px;color:var(--ink);
+    letter-spacing:-0.005em;
+  }
+  label .req{color:var(--blue);margin-left:2px;}
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea{
+    display:block;width:100%;
+    padding:13px 16px;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    font-family:'Inter',sans-serif;
+    font-size:0.97rem;
+    color:var(--ink);
+    background:#fff;
+    transition:border-color .2s ease, box-shadow .2s ease;
+    outline:none;
+    -webkit-appearance:none;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(0,102,255,0.12);
+  }
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="tel"]::placeholder,
+  textarea::placeholder{color:#B0B0B8;}
+
+  textarea{resize:vertical;min-height:96px;}
+
+  /* ---- Consent block ---- */
+  .consent-block{
+    background:var(--bg-soft);
+    border-radius:16px;
+    padding:20px 20px 20px 20px;
+    margin-bottom:32px;
+  }
+  .consent-block .terms-text{
+    font-size:0.85rem;line-height:1.65;color:var(--ink-soft);
+    max-height:140px;overflow-y:auto;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    background:#fff;
+    margin-bottom:16px;
+    scrollbar-width:thin;
+  }
+  .consent-block .terms-text::-webkit-scrollbar{width:4px;}
+  .consent-block .terms-text::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+
+  .checkbox-row{
+    display:flex;align-items:flex-start;gap:12px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .checkbox-row input[type="checkbox"]{
+    flex-shrink:0;
+    width:20px;height:20px;
+    margin-top:1px;
+    accent-color:var(--blue);
+    cursor:pointer;
+    border-radius:4px;
+  }
+  .checkbox-row span{
+    font-size:0.9rem;color:var(--ink);line-height:1.55;font-weight:500;
+  }
+  .checkbox-row span strong{color:var(--blue);}
+
+  /* ---- Divider ---- */
+  .divider{
+    border:none;border-top:1px solid var(--line);
+    margin:32px 0;
+  }
+
+  /* ---- Submit ---- */
+  .submit-btn{
+    display:block;width:100%;
+    padding:16px 24px;
+    background:var(--blue);
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:1rem;font-weight:700;
+    border:none;border-radius:14px;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease, box-shadow .2s ease;
+    letter-spacing:-0.01em;
+  }
+  .submit-btn:hover{background:#0052CC;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,102,255,0.28);}
+  .submit-btn:active{transform:translateY(0);}
+  .submit-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;}
+
+  .form-note{
+    text-align:center;margin-top:18px;
+    font-size:0.82rem;color:var(--ink-soft);
+    line-height:1.55;
+  }
+
+  /* ---- Success message (JS-driven) ---- */
+  .success-msg{
+    display:none;
+    background:#F0FAF5;
+    border:1.5px solid #A8DBBE;
+    border-radius:16px;
+    padding:28px 32px;
+    text-align:center;
+    margin-top:24px;
+  }
+  .success-msg h3{
+    font-size:1.4rem;font-weight:800;color:var(--green);
+    margin:0 0 10px;letter-spacing:-0.02em;
+  }
+  .success-msg p{font-size:0.97rem;color:var(--ink-soft);margin:0;line-height:1.6;}
+
+  /* ---- Error state ---- */
+  .field-error{
+    font-size:0.8rem;color:var(--red);margin-top:5px;font-weight:500;display:none;
+  }
+  input.invalid,textarea.invalid{border-color:var(--red) !important;}
+
+  footer{
+    text-align:center;padding:40px 24px 50px;
+    color:var(--ink-soft);font-size:0.85rem;
+    border-top:1px solid var(--line);margin-top:20px;
+  }
+
+  @media(max-width:640px){
+    .form-card{padding:28px 20px;}
+    .page{padding:40px 16px 80px;}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="tabs" aria-label="Site navigation">
+    <ul>
+      <li><a href="/" class="nav-link">Overview</a></li>
+      <li><a href="/#monthly-breakdown" class="nav-link">Monthly Ledger</a></li>
+      <li><a href="/#chit-rules" class="nav-link">Rules</a></li>
+      <li><a href="/#why-join" class="nav-link">Why Join</a></li>
+      <li><a href="/#payment-works" class="nav-link">How It Works</a></li>
+      <li><a href="/register" class="nav-link active register-btn">Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <div class="eyebrow">Join the Fund</div>
+      <h1>Register Now</h1>
+      <p>Fill in your details below to express interest in the 15-Month Chit Fund. The organiser will follow up to confirm your spot.</p>
+    </div>
+
+    <div class="form-card">
+      <!-- Honeypot for spam protection -->
+      <p style="display:none" aria-hidden="true">
+        <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </p>
+
+      <form
+        name="registration"
+        method="POST"
+        action="/thank-you"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        id="registrationForm"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="registration">
+
+        <div class="field">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input
+            type="text"
+            id="fullName"
+            name="name"
+            placeholder="Your full name"
+            autocomplete="name"
+            required
+          >
+          <div class="field-error" id="nameError">Please enter your full name.</div>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone Number <span class="req">*</span></label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="+1 (555) 000-0000"
+            autocomplete="tel"
+            required
+          >
+          <div class="field-error" id="phoneError">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+          <div class="field-error" id="emailError">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field">
+          <label for="address">Home Address <span class="req">*</span></label>
+          <textarea
+            id="address"
+            name="address"
+            placeholder="Street, City, State, ZIP"
+            autocomplete="street-address"
+            required
+          ></textarea>
+          <div class="field-error" id="addressError">Please enter your address.</div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="consent-block">
+          <div class="terms-text" role="region" aria-label="Terms and Conditions" tabindex="0">
+            <strong>Terms &amp; Conditions — 15-Month Chit Fund</strong><br><br>
+            By registering, you confirm that you understand and agree to the following:<br><br>
+            <strong>1. Participation Commitment.</strong> You commit to making monthly contributions as scheduled for the full 15-month duration of the fund. Missing payments may result in forfeiture of your turn or removal from the group at the organiser's discretion.<br><br>
+            <strong>2. Lift Month Allocation.</strong> Lift months are assigned by lottery. All registered participants will be entered into a fair draw, and results will be announced before the fund commences. No gift card compensation is provided for lift month assignments, as gifts are reserved as rewards for on-time payments.<br><br>
+            <strong>3. Community Trust.</strong> This fund operates on mutual trust among all participants. You agree not to default on payments and to communicate any financial difficulties to the organiser promptly.<br><br>
+            <strong>4. No Guarantee.</strong> The 15-Month Chit Fund is a community savings arrangement, not a regulated financial product. Returns and terms are subject to the agreed group rules and are not guaranteed by any financial institution.<br><br>
+            <strong>5. Data Use.</strong> Your personal information (name, phone, email, address) will be used solely to manage your participation in this fund and will not be shared with third parties without your consent.<br><br>
+            <strong>6. Right to Withdraw.</strong> You may withdraw your registration before the fund officially starts by notifying the organiser. Once the fund commences, withdrawal terms will be negotiated on a case-by-case basis.<br><br>
+            <strong>7. Governing Rules.</strong> All participants are subject to the house rules published on this site. The organiser's decision on any disputes is final and binding.
+          </div>
+
+          <label class="checkbox-row" for="consent">
+            <input type="checkbox" id="consent" name="consent" value="agreed" required>
+            <span>
+              I have read and agree to the <strong>Terms &amp; Conditions</strong>. I understand this is a community-based fund and not a regulated financial product.
+            </span>
+          </label>
+          <div class="field-error" id="consentError" style="margin-top:8px;">You must agree to the terms before registering.</div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          Submit Registration
+        </button>
+
+        <p class="form-note">
+          We'll review your registration and be in touch within 2 business days.
+        </p>
+      </form>
+
+      <div class="success-msg" id="successMsg" role="alert">
+        <h3>You're registered!</h3>
+        <p>Thanks for signing up. The organiser will review your details and reach out to confirm your spot in the fund.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>15-Month Chit Fund — Register your interest before the deadline</footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById('registrationForm');
+      var submitBtn = document.getElementById('submitBtn');
+
+      function showError(inputId, errorId, show) {
+        var input = document.getElementById(inputId);
+        var error = document.getElementById(errorId);
+        if (show) {
+          input.classList.add('invalid');
+          error.style.display = 'block';
+        } else {
+          input.classList.remove('invalid');
+          error.style.display = 'none';
+        }
+      }
+
+      function validateForm() {
+        var valid = true;
+
+        var name = document.getElementById('fullName');
+        var nameOk = name.value.trim().length >= 2;
+        showError('fullName', 'nameError', !nameOk);
+        if (!nameOk) valid = false;
+
+        var phone = document.getElementById('phone');
+        var phoneOk = /^[\d\s\+\-\(\)]{7,20}$/.test(phone.value.trim());
+        showError('phone', 'phoneError', !phoneOk);
+        if (!phoneOk) valid = false;
+
+        var email = document.getElementById('email');
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        showError('email', 'emailError', !emailOk);
+        if (!emailOk) valid = false;
+
+        var address = document.getElementById('address');
+        var addrOk = address.value.trim().length >= 5;
+        showError('address', 'addressError', !addrOk);
+        if (!addrOk) valid = false;
+
+        var consent = document.getElementById('consent');
+        var consentOk = consent.checked;
+        var consentError = document.getElementById('consentError');
+        if (!consentOk) {
+          consentError.style.display = 'block';
+          valid = false;
+        } else {
+          consentError.style.display = 'none';
+        }
+
+        return valid;
+      }
+
+      // Clear individual errors on input
+      ['fullName', 'phone', 'email', 'address'].forEach(function (id) {
+        var el = document.getElementById(id);
+        el.addEventListener('input', function () {
+          el.classList.remove('invalid');
+          var errId = id === 'fullName' ? 'nameError'
+                    : id === 'phone'    ? 'phoneError'
+                    : id === 'email'    ? 'emailError'
+                    : 'addressError';
+          document.getElementById(errId).style.display = 'none';
+        });
+      });
+      document.getElementById('consent').addEventListener('change', function () {
+        document.getElementById('consentError').style.display = 'none';
+      });
+
+      form.addEventListener('submit', function (e) {
+        if (!validateForm()) {
+          e.preventDefault();
+          return;
+        }
+        // Let the native POST proceed to /thank-you (Netlify handles it)
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+      });
+    })();
+  </script>
+
+</body>
+</html>
