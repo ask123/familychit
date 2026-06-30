@@ -458,12 +458,32 @@
 
     <div class="wrap">
       <div class="table-toggle reveal" id="tableToggle">
-        <details id="dataDetails">
+        <details id="dataDetails" open>
           <summary>View full data table</summary>
           <div class="table-scroll">
             <table id="ledgerTable">
-              <thead></thead>
-              <tbody></tbody>
+              <thead>
+                <tr>
+                  <th>Month</th><th>Monthly Chit</th><th>Post Lift</th><th>Amount Received</th><th>Total Paid</th><th>Net Position</th><th>% Interest</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td data-label="Month">1</td><td data-label="Monthly Chit">$2,100</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$35,000</td><td data-label="Net Position" class="loss">-$5,000</td><td data-label="% Interest" class="loss">-14.3%</td></tr>
+                <tr><td data-label="Month">2</td><td data-label="Monthly Chit">$2,050</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$34,700</td><td data-label="Net Position" class="loss">-$4,700</td><td data-label="% Interest" class="loss">-13.5%</td></tr>
+                <tr><td data-label="Month">3</td><td data-label="Monthly Chit">$2,000</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$34,350</td><td data-label="Net Position" class="loss">-$4,350</td><td data-label="% Interest" class="loss">-12.7%</td></tr>
+                <tr><td data-label="Month">4</td><td data-label="Monthly Chit">$1,950</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,950</td><td data-label="Net Position" class="loss">-$3,950</td><td data-label="% Interest" class="loss">-11.6%</td></tr>
+                <tr><td data-label="Month">5</td><td data-label="Monthly Chit">$1,900</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,500</td><td data-label="Net Position" class="loss">-$3,500</td><td data-label="% Interest" class="loss">-10.4%</td></tr>
+                <tr><td data-label="Month">6</td><td data-label="Monthly Chit">$1,850</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,000</td><td data-label="Net Position" class="loss">-$3,000</td><td data-label="% Interest" class="loss">-9.1%</td></tr>
+                <tr><td data-label="Month">7</td><td data-label="Monthly Chit">$1,800</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$32,450</td><td data-label="Net Position" class="loss">-$2,450</td><td data-label="% Interest" class="loss">-7.6%</td></tr>
+                <tr><td data-label="Month">8</td><td data-label="Monthly Chit">$1,750</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$31,850</td><td data-label="Net Position" class="loss">-$1,850</td><td data-label="% Interest" class="loss">-5.8%</td></tr>
+                <tr><td data-label="Month">9</td><td data-label="Monthly Chit">$1,700</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$31,200</td><td data-label="Net Position" class="loss">-$1,200</td><td data-label="% Interest" class="loss">-3.8%</td></tr>
+                <tr><td data-label="Month">10</td><td data-label="Monthly Chit">$1,650</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$30,500</td><td data-label="Net Position" class="loss">-$500</td><td data-label="% Interest" class="loss">-1.6%</td></tr>
+                <tr class="lift-zone"><td data-label="Month">11</td><td data-label="Monthly Chit">$1,600</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$29,750</td><td data-label="Net Position" class="gain">+$250</td><td data-label="% Interest" class="gain">+0.8%</td></tr>
+                <tr class="lift-zone"><td data-label="Month">12</td><td data-label="Monthly Chit">$1,550</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,200</td><td data-label="Total Paid">$28,950</td><td data-label="Net Position" class="gain">+$1,250</td><td data-label="% Interest" class="gain">+4.3%</td></tr>
+                <tr class="lift-zone"><td data-label="Month">13</td><td data-label="Monthly Chit">$1,500</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,500</td><td data-label="Total Paid">$28,100</td><td data-label="Net Position" class="gain">+$2,400</td><td data-label="% Interest" class="gain">+8.5%</td></tr>
+                <tr class="lift-zone"><td data-label="Month">14</td><td data-label="Monthly Chit">$1,450</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,800</td><td data-label="Total Paid">$27,200</td><td data-label="Net Position" class="gain">+$3,600</td><td data-label="% Interest" class="gain">+13.2%</td></tr>
+                <tr class="lift-zone"><td data-label="Month">15</td><td data-label="Monthly Chit">$1,400</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$31,200</td><td data-label="Total Paid">$26,250</td><td data-label="Net Position" class="gain">+$4,950</td><td data-label="% Interest" class="gain">+18.9%</td></tr>
+              </tbody>
             </table>
           </div>
         </details>
@@ -473,6 +493,7 @@
         <span class="lbl">Key insight</span>
         Months 1–10 run at a loss — you're paying a premium for early liquidity. Months 11–15 flip to a gain, where patience pays off. <b>Maximum cost is capped at -14.3%.</b>
       </div>
+
     </div>
   </section>
 
@@ -655,51 +676,9 @@
         '<div class="m-row"><span>Total paid</span><b>' + d.paid + '</b></div>';
       rail.appendChild(card);
     });
-
-    // ---- Build the data table (desktop: standard table; mobile: same
-    // markup reflows into stacked cards via CSS using data-label) ----
-    (function () {
-      var cols = [
-        {key:'m', label:'Month'},
-        {key:'chit', label:'Monthly Chit'},
-        {key:'postLift', label:'Post Lift'},
-        {key:'recv', label:'Amount Received'},
-        {key:'paid', label:'Total Paid'},
-        {key:'net', label:'Net Position', cls:true},
-        {key:'pct', label:'% Interest', cls:true}
-      ];
-      var table = document.getElementById('ledgerTable');
-      var thead = table.querySelector('thead');
-      var tbody = table.querySelector('tbody');
-
-      var trHead = document.createElement('tr');
-      cols.forEach(function (c) {
-        var th = document.createElement('th');
-        th.textContent = c.label;
-        trHead.appendChild(th);
-      });
-      thead.appendChild(trHead);
-
-      months.forEach(function (d) {
-        d.postLift = '$2,350';
-        var tr = document.createElement('tr');
-        if (d.lift) tr.className = 'lift-zone';
-        cols.forEach(function (c) {
-          var td = document.createElement('td');
-          td.setAttribute('data-label', c.label);
-          td.textContent = d[c.key];
-          if (c.cls) td.classList.add(d.cls);
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-
-      // On mobile the table is the primary content, so keep it open.
-      // On desktop it stays a collapsible "view full table" toggle.
-      if (window.matchMedia('(max-width:760px)').matches) {
-        document.getElementById('dataDetails').setAttribute('open', '');
-      }
-    })();
+    // Note: the data table itself is plain static HTML (not built by JS),
+    // so it always renders correctly even if scripts are blocked, delayed,
+    // or behave inconsistently inside an embedded/mobile context.
 
     // ---- Nav: scrollIntoView instead of anchor hashes ----
     // Google Sites embeds this page in a sandboxed iframe and intercepts
