@@ -187,10 +187,16 @@
   .insight-banner .lbl{display:block; font-size:0.78rem; font-weight:600; color:#9A9AA0; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;}
 
   /* ---------- Rules ---------- */
-  .rule-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  .rule-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:20px;
+  }
   .rule-card{
     background:#fff; border-radius:20px; box-shadow:var(--card-shadow);
     padding:30px 28px; transition:transform .25s ease, box-shadow .25s ease;
+    min-width:0;
+    max-width:100%;
   }
   .rule-card:hover{transform:translateY(-4px); box-shadow:var(--card-shadow-hover);}
   .rule-card .num{
@@ -202,10 +208,10 @@
   .rule-card li::marker{color:var(--blue);}
   .rule-card strong{color:var(--ink);}
 
-  .gift-table{width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;}
-  .gift-table td{padding:9px 0; border-bottom:1px solid var(--line);}
+  .gift-table{width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; margin-top:16px; font-size:0.9rem;}
+  .gift-table td{padding:9px 0; border-bottom:1px solid var(--line); overflow-wrap:break-word; word-break:break-word;}
   .gift-table tr:last-child td{border-bottom:none;}
-  .gift-table td:last-child{text-align:right; font-weight:700; color:var(--ink);}
+  .gift-table td:last-child{text-align:right; font-weight:700; color:var(--ink); white-space:nowrap;}
 
   .tip-banner{
     margin-top:24px; background:#EAF1FF; border-radius:16px; padding:20px 26px;
@@ -214,29 +220,31 @@
   .tip-banner b{color:var(--blue);}
 
   /* ---------- Why join ---------- */
-  .value-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .value-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:24px;}
   .value-card{
     background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
+    min-width:0; max-width:100%;
   }
   .value-card .icon-lbl{font-size:0.82rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
   .value-card h3{font-size:1.4rem; font-weight:800; margin:0 0 16px; letter-spacing:-0.015em;}
   .value-card ul{margin:0; padding-left:20px; color:var(--ink-soft); line-height:1.8; font-size:0.96rem;}
   .value-card strong{color:var(--ink);}
 
-  .compare-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:0.93rem;}
+  .compare-table{width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; margin-top:8px; font-size:0.93rem;}
   .compare-table th{
     text-align:left; font-weight:600; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em;
     color:var(--ink-soft); padding:14px 18px; border-bottom:1px solid var(--line);
+    overflow-wrap:break-word; word-break:break-word;
   }
-  .compare-table td{padding:14px 18px; border-bottom:1px solid var(--line);}
+  .compare-table td{padding:14px 18px; border-bottom:1px solid var(--line); overflow-wrap:break-word; word-break:break-word;}
   .compare-table tr.best{background:#F7FCF9;}
   .compare-table tr:last-child td{border-bottom:none;}
   .v-good{color:var(--green); font-weight:600;}
   .v-bad{color:var(--red); font-weight:600;}
   .v-warn{color:#B97A12; font-weight:600;}
 
-  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:50px;}
-  .fit-card{border-radius:20px; padding:30px 32px;}
+  .fit-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; margin-top:50px;}
+  .fit-card{border-radius:20px; padding:30px 32px; min-width:0; max-width:100%;}
   .fit-card.good{background:#F0FAF5;}
   .fit-card.bad{background:#FDF1F1;}
   .fit-card h4{margin:0 0 14px; font-size:1.15rem; font-weight:700;}
@@ -251,9 +259,10 @@
   .bottom-line p{font-size:1.05rem; color:var(--ink-soft); line-height:1.7;}
 
   /* ---------- Payment flow ---------- */
-  .flow{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .flow{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px;}
   .stage{
     background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
+    min-width:0; max-width:100%;
   }
   .stage .stage-eyebrow{font-size:0.8rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
   .stage p{font-size:1.05rem; color:var(--ink-soft); margin:0; line-height:1.6;}
@@ -391,7 +400,7 @@
 
       <div class="insight-banner reveal">
         <span class="lbl">Key insight</span>
-        Months 1–10 run at a loss — you're paying a premium for early liquidity. Months 11–15 flip to a gain, where patience pays off. <b>Maximum cost is capped at -14.3%.</b>
+        Months 1–10 — you're paying a premium for early liquidity. Months 11–15 flip to a gain, where patience pays off. <b>Maximum cost is capped at -14.3%.</b>
       </div>
 
 
