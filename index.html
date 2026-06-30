@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 15-Month Chit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#F5F5F7;
+    --ink:#1D1D1F;
+    --ink-soft:#6E6E73;
+    --line:#E5E5E7;
+    --blue:#0066FF;
+    --green:#1D9A6C;
+    --red:#E0383B;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
+    --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:auto;}
+
+  html, body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  body{
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px; width:100%;}
+
+  section, header, nav, footer{max-width:100%; overflow-x:hidden;}
+
+  /* ---------- Nav ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs ul{
+    list-style:none; margin:0; padding:0;
+    max-width:1100px; margin:0 auto;
+    display:flex; gap:4px; justify-content:center;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:0 16px;
+    width:100%;
+  }
+  nav.tabs ul::-webkit-scrollbar{display:none;}
+  nav.tabs li{flex:0 0 auto;}
+  nav.tabs button{
+    font-family:'Inter', sans-serif;
+    font-size:0.84rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    background:transparent;
+    border:none;
+    padding:18px 16px;
+    cursor:pointer;
+    white-space:nowrap;
+    position:relative;
+    transition:color .2s ease;
+  }
+  nav.tabs button::after{
+    content:"";
+    position:absolute; left:16px; right:16px; bottom:0;
+    height:2px; background:var(--ink);
+    transform:scaleX(0); transform-origin:center;
+    transition:transform .25s ease;
+  }
+  nav.tabs button:hover{color:var(--ink);}
+  nav.tabs button.active{color:var(--ink); font-weight:600;}
+  nav.tabs button.active::after{transform:scaleX(1);}
+  nav.tabs button:focus-visible{outline:2px solid var(--blue); outline-offset:2px; border-radius:4px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    text-align:center;
+    padding:120px 24px 90px;
+  }
+  .hero .eyebrow{
+    font-size:0.92rem;
+    font-weight:600;
+    color:var(--blue);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    font-weight:800;
+    line-height:1.04;
+    letter-spacing:-0.03em;
+    margin:0 0 22px;
+    background:linear-gradient(180deg, #1D1D1F 0%, #4A4A4E 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero p{
+    font-size:1.3rem;
+    color:var(--ink-soft);
+    max-width:600px;
+    margin:0 auto;
+    font-weight:400;
+  }
+
+  .hero-stats{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:0;
+    margin-top:70px;
+  }
+  .hero-stats .figure{
+    padding:0 44px;
+    border-right:1px solid var(--line);
+    text-align:center;
+  }
+  .hero-stats .figure:last-child{border-right:none;}
+  .hero-stats .num{
+    font-size:clamp(2rem, 4vw, 2.7rem);
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  .hero-stats .num.blue{color:var(--blue);}
+  .hero-stats .num.green{color:var(--green);}
+  .hero-stats .lbl{
+    font-size:0.86rem;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  section{scroll-margin-top:64px; padding:100px 0;}
+  section.tight{padding-top:0;}
+  .bg-soft{background:var(--bg-soft);}
+
+  .section-head{text-align:center; max-width:640px; margin:0 auto 60px;}
+  .section-head .eyebrow{
+    font-size:0.84rem; font-weight:600; color:var(--blue);
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;
+  }
+  .section-head h2{
+    font-size:clamp(1.9rem, 4vw, 2.6rem);
+    font-weight:800; letter-spacing:-0.02em; margin:0 0 14px;
+  }
+  .section-head p{font-size:1.08rem; color:var(--ink-soft); margin:0;}
+
+  /* ---------- Month rail (signature element) ---------- */
+  .rail-outer{position:relative; width:100%; max-width:100vw; overflow:hidden;}
+  .rail{
+    display:flex; gap:18px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    padding:8px 24px 28px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    width:100%;
+  }
+  .rail::-webkit-scrollbar{height:6px;}
+  .rail::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px;}
+
+  .month-card{
+    scroll-snap-align:start;
+    flex:0 0 230px;
+    background:#fff;
+    border-radius:24px;
+    box-shadow:var(--card-shadow);
+    padding:28px 24px;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .month-card:hover{transform:translateY(-6px); box-shadow:var(--card-shadow-hover);}
+  .month-card .m-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem; font-weight:600; color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  .month-card .m-net{
+    font-size:2rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px;
+  }
+  .month-card .m-net.loss{color:var(--red);}
+  .month-card .m-net.gain{color:var(--green);}
+  .month-card .m-pct{font-size:0.92rem; color:var(--ink-soft); margin-bottom:20px;}
+  .month-card hr{border:none; border-top:1px solid var(--line); margin:18px 0;}
+  .month-card .m-row{display:flex; justify-content:space-between; font-size:0.86rem; padding:4px 0; color:var(--ink-soft);}
+  .month-card .m-row b{color:var(--ink); font-weight:600;}
+  .month-card.lift{background:linear-gradient(180deg, #fff 0%, #F0FAF5 100%); box-shadow:0 2px 8px rgba(29,154,108,0.08), 0 12px 32px rgba(29,154,108,0.12);}
+  .month-card.final{background:linear-gradient(180deg, #fff 0%, #EAF8F0 100%);}
+
+  .rail-hint{
+    text-align:center; font-size:0.84rem; color:var(--ink-soft); margin-top:-6px;
+  }
+
+  /* ---------- Compact data table ---------- */
+  .table-toggle{
+    text-align:center; margin-top:50px;
+  }
+  details summary{
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-size:0.92rem; font-weight:600; color:var(--blue);
+    padding:10px 20px; border-radius:999px; background:var(--bg-soft);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"↓"; transition:transform .2s ease;}
+  details[open] summary::after{transform:rotate(180deg);}
+  details[open] summary{margin-bottom:24px;}
+
+  .table-scroll{overflow-x:auto; max-width:100%; border-radius:16px; box-shadow:var(--card-shadow); background:#fff;}
+  table{width:100%; border-collapse:collapse; font-size:0.88rem; min-width:680px;}
+  thead th{
+    text-align:right; font-weight:600; font-size:0.74rem;
+    text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft);
+    padding:16px 16px; border-bottom:1px solid var(--line);
+  }
+  thead th:first-child{text-align:left;}
+  tbody td{padding:13px 16px; text-align:right; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{text-align:left; font-weight:600;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr.lift-zone{background:#F7FCF9;}
+  td.loss{color:var(--red); font-weight:600;}
+  td.gain{color:var(--green); font-weight:700;}
+
+  .insight-banner{
+    margin-top:36px;
+    background:var(--ink);
+    color:#fff;
+    border-radius:20px;
+    padding:28px 32px;
+    font-size:1.02rem;
+    line-height:1.55;
+  }
+  .insight-banner b{color:#fff;}
+  .insight-banner .lbl{display:block; font-size:0.78rem; font-weight:600; color:#9A9AA0; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;}
+
+  /* ---------- Rules ---------- */
+  .rule-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  .rule-card{
+    background:#fff; border-radius:20px; box-shadow:var(--card-shadow);
+    padding:30px 28px; transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .rule-card:hover{transform:translateY(-4px); box-shadow:var(--card-shadow-hover);}
+  .rule-card .num{
+    font-size:0.78rem; font-weight:700; color:var(--blue); margin-bottom:14px;
+    letter-spacing:0.04em;
+  }
+  .rule-card h3{font-size:1.18rem; font-weight:700; margin:0 0 14px; letter-spacing:-0.01em;}
+  .rule-card ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.94rem; line-height:1.7;}
+  .rule-card li::marker{color:var(--blue);}
+  .rule-card strong{color:var(--ink);}
+
+  .gift-table{width:100%; border-collapse:collapse; margin-top:16px; font-size:0.9rem;}
+  .gift-table td{padding:9px 0; border-bottom:1px solid var(--line);}
+  .gift-table tr:last-child td{border-bottom:none;}
+  .gift-table td:last-child{text-align:right; font-weight:700; color:var(--ink);}
+
+  .tip-banner{
+    margin-top:24px; background:#EAF1FF; border-radius:16px; padding:20px 26px;
+    font-size:0.96rem; color:var(--ink);
+  }
+  .tip-banner b{color:var(--blue);}
+
+  /* ---------- Why join ---------- */
+  .value-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .value-card{
+    background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
+  }
+  .value-card .icon-lbl{font-size:0.82rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
+  .value-card h3{font-size:1.4rem; font-weight:800; margin:0 0 16px; letter-spacing:-0.015em;}
+  .value-card ul{margin:0; padding-left:20px; color:var(--ink-soft); line-height:1.8; font-size:0.96rem;}
+  .value-card strong{color:var(--ink);}
+
+  .compare-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:0.93rem;}
+  .compare-table th{
+    text-align:left; font-weight:600; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--ink-soft); padding:14px 18px; border-bottom:1px solid var(--line);
+  }
+  .compare-table td{padding:14px 18px; border-bottom:1px solid var(--line);}
+  .compare-table tr.best{background:#F7FCF9;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .v-good{color:var(--green); font-weight:600;}
+  .v-bad{color:var(--red); font-weight:600;}
+  .v-warn{color:#B97A12; font-weight:600;}
+
+  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:50px;}
+  .fit-card{border-radius:20px; padding:30px 32px;}
+  .fit-card.good{background:#F0FAF5;}
+  .fit-card.bad{background:#FDF1F1;}
+  .fit-card h4{margin:0 0 14px; font-size:1.15rem; font-weight:700;}
+  .fit-card.good h4{color:var(--green);}
+  .fit-card.bad h4{color:var(--red);}
+  .fit-card ul{margin:0; padding-left:18px; font-size:0.94rem; color:var(--ink-soft); line-height:1.8;}
+
+  .bottom-line{
+    margin-top:50px; text-align:center; max-width:680px; margin-left:auto; margin-right:auto;
+  }
+  .bottom-line h3{font-size:1.6rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:16px;}
+  .bottom-line p{font-size:1.05rem; color:var(--ink-soft); line-height:1.7;}
+
+  /* ---------- Payment flow ---------- */
+  .flow{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .stage{
+    background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
+  }
+  .stage .stage-eyebrow{font-size:0.8rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
+  .stage p{font-size:1.05rem; color:var(--ink-soft); margin:0; line-height:1.6;}
+  .stage strong{color:var(--ink);}
+
+  .formula{
+    margin-top:24px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.92rem;
+    background:var(--ink);
+    color:#fff;
+    padding:24px 28px;
+    border-radius:18px;
+    line-height:1.8;
+    text-align:center;
+  }
+
+  footer{
+    text-align:center; padding:60px 24px 70px; color:var(--ink-soft); font-size:0.85rem;
+    border-top:1px solid var(--line); margin-top:20px;
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  /* Default: visible. JS adds .js-anim to <html> once confirmed working,
+     which is the only thing that switches these to the hidden start-state.
+     This guarantees content is never permanently invisible if JS/observer
+     behavior is unreliable inside an embedded iframe (e.g. Google Sites). */
+  .reveal{opacity:1; transform:none;}
+  html.js-anim .reveal{
+    opacity:0; transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  html.js-anim .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .month-card, .rule-card{transition:none;}
+  }
+
+  @media (max-width:760px){
+    .hero{padding:80px 24px 60px;}
+    .hero-stats{width:100%; max-width:100%;}
+    .hero-stats .figure{padding:0 16px; margin-bottom:18px; border-right:none; flex:1 1 auto; min-width:0;}
+    section{padding:64px 0;}
+    .rule-grid{grid-template-columns:1fr;}
+    .value-grid{grid-template-columns:1fr;}
+    .fit-grid{grid-template-columns:1fr;}
+    .flow{grid-template-columns:1fr;}
+    .wrap{padding:0 16px;}
+    .rail{padding:8px 16px 28px;}
+
+    /* Month rail is a desktop pattern (horizontal scroll-snap competes
+       with page scroll inside an embedded iframe). Hide it on mobile and
+       lead with the table instead, which is the primary content there. */
+    .rail-outer, .rail-hint{display:none;}
+
+    /* Table is the main content on mobile: remove the "view full table"
+       collapse step and present it open by default. */
+    .table-toggle summary{display:none;}
+    details{display:block;}
+
+    /* Reflow the data table into stacked label/value cards. Each <tr>
+       becomes a block; each <td> becomes a row with its column header
+       as a label, generated via the data-label attribute set in JS. */
+    .table-scroll{overflow:visible; box-shadow:none; background:transparent; border-radius:0;}
+    #ledgerTable, #ledgerTable tbody, #ledgerTable tr, #ledgerTable td{display:block; width:100%;}
+    #ledgerTable{min-width:0;}
+    #ledgerTable thead{display:none;}
+    #ledgerTable tr{
+      background:#fff;
+      border-radius:18px;
+      box-shadow:var(--card-shadow);
+      padding:18px 20px;
+      margin-bottom:14px;
+    }
+    #ledgerTable tr.lift-zone{background:#F7FCF9;}
+    #ledgerTable td{
+      display:flex; justify-content:space-between; align-items:baseline;
+      text-align:right; padding:7px 0; border-bottom:1px solid var(--line);
+    }
+    #ledgerTable tr td:last-child{border-bottom:none;}
+    #ledgerTable td::before{
+      content:attr(data-label);
+      font-size:0.78rem; font-weight:600; color:var(--ink-soft);
+      text-align:left;
+    }
+    #ledgerTable td:first-child{
+      font-size:1.05rem; font-weight:800; color:var(--ink);
+      padding-bottom:10px; margin-bottom:6px; border-bottom:1px solid var(--line);
+    }
+    #ledgerTable td:first-child::before{content:"Month"; font-weight:600;}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="tabs" id="tabNav" aria-label="Page sections">
+    <ul>
+      <li><button data-target="key-parameters" class="active">Overview</button></li>
+      <li><button data-target="monthly-breakdown">Monthly Ledger</button></li>
+      <li><button data-target="chit-rules">Rules</button></li>
+      <li><button data-target="why-join">Why Join</button></li>
+      <li><button data-target="payment-works">How It Works</button></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Community Chit Fund</div>
+    <h1>The 15-Month<br>Chit.</h1>
+    <p>Pay early for liquidity. Wait, and earn more than any bank account will give you.</p>
+
+    <div class="hero-stats reveal" id="key-parameters">
+      <div class="figure">
+        <div class="num blue">$30,000</div>
+        <div class="lbl">Base amount received</div>
+      </div>
+      <div class="figure">
+        <div class="num">15</div>
+        <div class="lbl">Months to complete</div>
+      </div>
+      <div class="figure">
+        <div class="num green">+18.9%</div>
+        <div class="lbl">Max return, Month 15</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="monthly-breakdown" class="bg-soft">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">The Ledger</div>
+        <h2>Every month, mapped out.</h2>
+        <p>The first ten months cost you a premium. The last five pay you back.</p>
+      </div>
+    </div>
+
+    <div class="rail-outer reveal" id="railOuter">
+      <div class="rail" id="monthRail">
+        <!-- cards injected by JS from data -->
+      </div>
+    </div>
+    <p class="rail-hint" id="railHint">← scroll to see all 15 months →</p>
+
+    <div class="wrap">
+      <div class="table-toggle reveal" id="tableToggle">
+        <details id="dataDetails">
+          <summary>View full data table</summary>
+          <div class="table-scroll">
+            <table id="ledgerTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+
+      <div class="insight-banner reveal">
+        <span class="lbl">Key insight</span>
+        Months 1–10 run at a loss — you're paying a premium for early liquidity. Months 11–15 flip to a gain, where patience pays off. <b>Maximum cost is capped at -14.3%.</b>
+      </div>
+    </div>
+  </section>
+
+  <section id="chit-rules">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">House Rules</div>
+        <h2>Three rules. That's it.</h2>
+      </div>
+
+      <div class="rule-grid">
+        <div class="rule-card reveal">
+          <div class="num">01</div>
+          <h3>Submit preferences</h3>
+          <ul>
+            <li>Select your <strong>1st choice</strong> month</li>
+            <li>Select your <strong>2nd choice</strong> month</li>
+            <li>Submit before the fund starts</li>
+          </ul>
+        </div>
+        <div class="rule-card reveal">
+          <div class="num">02</div>
+          <h3>Allocation priority</h3>
+          <ul>
+            <li>Organizer tries to honor everyone's <strong>1st choice</strong></li>
+            <li>If it conflicts, you may get your <strong>2nd choice</strong></li>
+            <li>If both are taken, the organizer negotiates directly</li>
+          </ul>
+        </div>
+        <div class="rule-card reveal">
+          <div class="num">03</div>
+          <h3>Gift card incentive</h3>
+          <ul>
+            <li>Got your choice → <strong>no gift card needed</strong></li>
+            <li>Moved months → <strong>$100–$500 gift card</strong></li>
+          </ul>
+          <table class="gift-table">
+            <tr><td>Minor adjustment</td><td>$100</td></tr>
+            <tr><td>Moderate sacrifice</td><td>$200–$300</td></tr>
+            <tr><td>Major sacrifice</td><td>$400–$500</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="tip-banner reveal">
+        <b>Tip —</b> choose wisely. Picking two months that are far apart (e.g. Month 15 and Month 8) makes it more likely you'll land one without conflict.
+      </div>
+    </div>
+  </section>
+
+  <section id="why-join" class="bg-soft">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">The Case</div>
+        <h2>Why join this chit fund?</h2>
+      </div>
+
+      <div class="value-grid">
+        <div class="value-card reveal">
+          <div class="icon-lbl">Need money early</div>
+          <h3>We've got you covered.</h3>
+          <ul>
+            <li>Get a <strong>$30,000 lump sum</strong> when you need it</li>
+            <li>No credit checks, no bank approvals, no paperwork</li>
+            <li>Cost is comparable to a personal loan (8–14%)</li>
+            <li>Still cheaper than a credit card (18–22%)</li>
+          </ul>
+        </div>
+        <div class="value-card reveal">
+          <div class="icon-lbl">Can wait</div>
+          <h3>Earn more than savings ever will.</h3>
+          <ul>
+            <li>Month 11 → <strong>+0.8%</strong></li>
+            <li>Month 12 → <strong>+4.3%</strong></li>
+            <li>Month 13 → <strong>+8.5%</strong></li>
+            <li>Month 14 → <strong>+13.2%</strong></li>
+            <li>Month 15 → <strong>+18.9%</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:50px;">
+        <table class="compare-table">
+          <thead><tr><th>Option</th><th>Interest / cost</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td>Credit card</td><td>18–22% p.a.</td><td class="v-bad">Expensive</td></tr>
+            <tr><td>Personal loan</td><td>8–15% p.a.</td><td class="v-warn">Paperwork + approval</td></tr>
+            <tr><td>Payday loan</td><td>40%+ p.a.</td><td class="v-bad">Avoid</td></tr>
+            <tr><td>Savings account</td><td>4–5% p.a.</td><td>Safe, but low</td></tr>
+            <tr class="best"><td>This chit (early lift)</td><td>10–14% cost</td><td class="v-good">No approval needed</td></tr>
+            <tr class="best"><td>This chit (late lift)</td><td>+1% to +19% gain</td><td class="v-good">Beats savings</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fit-grid">
+        <div class="fit-card good reveal">
+          <h4>Good fit</h4>
+          <ul>
+            <li>Need a lump sum in the next 15 months</li>
+            <li>Want forced savings discipline</li>
+            <li>Can commit to monthly payments</li>
+            <li>Trust the group members</li>
+          </ul>
+        </div>
+        <div class="fit-card bad reveal">
+          <h4>Not ideal</h4>
+          <ul>
+            <li>Need money today (go to a bank)</li>
+            <li>Can't commit to 15 months of payments</li>
+            <li>Prefer zero-risk investments only</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom-line reveal">
+        <h3>The bottom line</h3>
+        <p>Need money early? Pay a small premium — still cheaper than a credit card. Can wait? Earn up to 18.9% — better than any bank. Everyone wins: early members get liquidity, late members earn returns, the organizer manages it fairly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="payment-works">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Mechanics</div>
+        <h2>How payment works.</h2>
+      </div>
+
+      <div class="flow">
+        <div class="stage reveal">
+          <div class="stage-eyebrow">Before you lift</div>
+          <p>Pay the <strong>Monthly Chit</strong> amount — a discounted rate that rises the longer you wait to lift.</p>
+        </div>
+        <div class="stage reveal">
+          <div class="stage-eyebrow">After you lift</div>
+          <p>Pay the flat <strong>Post Lift</strong> amount of $2,350 for every remaining month.</p>
+        </div>
+      </div>
+
+      <div class="formula reveal">
+        Total Paid = Σ (Chit payments up to lift month) + ($2,350 × remaining months)
+      </div>
+    </div>
+  </section>
+
+  <footer>15-Month Chit Fund — Updated June 2026 — Submit your 2 preferences before the deadline</footer>
+
+  <script>
+    // ---- Build month rail from data (keeps markup + design in sync) ----
+    var months = [
+      {m:1, chit:"$2,100", recv:"$30,000", paid:"$35,000", net:"-$5,000", pct:"-14.3%", cls:"loss"},
+      {m:2, chit:"$2,050", recv:"$30,000", paid:"$34,700", net:"-$4,700", pct:"-13.5%", cls:"loss"},
+      {m:3, chit:"$2,000", recv:"$30,000", paid:"$34,350", net:"-$4,350", pct:"-12.7%", cls:"loss"},
+      {m:4, chit:"$1,950", recv:"$30,000", paid:"$33,950", net:"-$3,950", pct:"-11.6%", cls:"loss"},
+      {m:5, chit:"$1,900", recv:"$30,000", paid:"$33,500", net:"-$3,500", pct:"-10.4%", cls:"loss"},
+      {m:6, chit:"$1,850", recv:"$30,000", paid:"$33,000", net:"-$3,000", pct:"-9.1%", cls:"loss"},
+      {m:7, chit:"$1,800", recv:"$30,000", paid:"$32,450", net:"-$2,450", pct:"-7.6%", cls:"loss"},
+      {m:8, chit:"$1,750", recv:"$30,000", paid:"$31,850", net:"-$1,850", pct:"-5.8%", cls:"loss"},
+      {m:9, chit:"$1,700", recv:"$30,000", paid:"$31,200", net:"-$1,200", pct:"-3.8%", cls:"loss"},
+      {m:10, chit:"$1,650", recv:"$30,000", paid:"$30,500", net:"-$500", pct:"-1.6%", cls:"loss"},
+      {m:11, chit:"$1,600", recv:"$30,000", paid:"$29,750", net:"+$250", pct:"+0.8%", cls:"gain", lift:true},
+      {m:12, chit:"$1,550", recv:"$30,200", paid:"$28,950", net:"+$1,250", pct:"+4.3%", cls:"gain", lift:true},
+      {m:13, chit:"$1,500", recv:"$30,500", paid:"$28,100", net:"+$2,400", pct:"+8.5%", cls:"gain", lift:true},
+      {m:14, chit:"$1,450", recv:"$30,800", paid:"$27,200", net:"+$3,600", pct:"+13.2%", cls:"gain", lift:true},
+      {m:15, chit:"$1,400", recv:"$31,200", paid:"$26,250", net:"+$4,950", pct:"+18.9%", cls:"gain", lift:true, final:true}
+    ];
+
+    var rail = document.getElementById('monthRail');
+    months.forEach(function(d){
+      var card = document.createElement('div');
+      card.className = 'month-card' + (d.lift ? ' lift' : '') + (d.final ? ' final' : '');
+      card.innerHTML =
+        '<div class="m-num">MONTH ' + d.m + '</div>' +
+        '<div class="m-net ' + d.cls + '">' + d.net + '</div>' +
+        '<div class="m-pct ' + d.cls + '">' + d.pct + ' interest</div>' +
+        '<hr>' +
+        '<div class="m-row"><span>Monthly chit</span><b>' + d.chit + '</b></div>' +
+        '<div class="m-row"><span>Received</span><b>' + d.recv + '</b></div>' +
+        '<div class="m-row"><span>Total paid</span><b>' + d.paid + '</b></div>';
+      rail.appendChild(card);
+    });
+
+    // ---- Build the data table (desktop: standard table; mobile: same
+    // markup reflows into stacked cards via CSS using data-label) ----
+    (function () {
+      var cols = [
+        {key:'m', label:'Month'},
+        {key:'chit', label:'Monthly Chit'},
+        {key:'postLift', label:'Post Lift'},
+        {key:'recv', label:'Amount Received'},
+        {key:'paid', label:'Total Paid'},
+        {key:'net', label:'Net Position', cls:true},
+        {key:'pct', label:'% Interest', cls:true}
+      ];
+      var table = document.getElementById('ledgerTable');
+      var thead = table.querySelector('thead');
+      var tbody = table.querySelector('tbody');
+
+      var trHead = document.createElement('tr');
+      cols.forEach(function (c) {
+        var th = document.createElement('th');
+        th.textContent = c.label;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      months.forEach(function (d) {
+        d.postLift = '$2,350';
+        var tr = document.createElement('tr');
+        if (d.lift) tr.className = 'lift-zone';
+        cols.forEach(function (c) {
+          var td = document.createElement('td');
+          td.setAttribute('data-label', c.label);
+          td.textContent = d[c.key];
+          if (c.cls) td.classList.add(d.cls);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      // On mobile the table is the primary content, so keep it open.
+      // On desktop it stays a collapsible "view full table" toggle.
+      if (window.matchMedia('(max-width:760px)').matches) {
+        document.getElementById('dataDetails').setAttribute('open', '');
+      }
+    })();
+
+    // ---- Nav: scrollIntoView instead of anchor hashes ----
+    // Google Sites embeds this page in a sandboxed iframe and intercepts
+    // normal <a href="#id"> clicks as outbound navigation, triggering a
+    // consent/leave-site prompt. scrollIntoView never touches location.hash
+    // or history, so there's nothing for the host page to intercept.
+    (function () {
+      var buttons = document.querySelectorAll('#tabNav button[data-target]');
+      var sections = Array.prototype.map.call(buttons, function (b) {
+        return document.getElementById(b.getAttribute('data-target'));
+      });
+
+      function setActive(btn) {
+        buttons.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var target = document.getElementById(btn.getAttribute('data-target'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setActive(btn);
+          }
+        });
+      });
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            var match = document.querySelector('#tabNav button[data-target="' + id + '"]');
+            if (match) setActive(match);
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { if (s) observer.observe(s); });
+    })();
+
+    // ---- Scroll reveal ----
+    (function () {
+      var revealEls = document.querySelectorAll('.reveal');
+      document.documentElement.classList.add('js-anim');
+
+      // Fallback: if IntersectionObserver doesn't fire (can happen inside
+      // sandboxed iframes like Google Sites, where viewport/intersection
+      // reporting can be unreliable), force everything visible after a
+      // short delay so content is never stuck at opacity:0.
+      var fallbackTimer = setTimeout(function () {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+      }, 1200);
+
+      if (!('IntersectionObserver' in window)) {
+        clearTimeout(fallbackTimer);
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.01, rootMargin: '0px 0px 200px 0px' });
+      revealEls.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
