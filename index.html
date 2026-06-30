@@ -17,6 +17,7 @@
     --blue:#0066FF;
     --green:#1D9A6C;
     --red:#E0383B;
+    --gold:#B8860B;
     --card-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
     --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.10);
   }
@@ -89,6 +90,22 @@
   nav.tabs button.active{color:var(--ink); font-weight:600;}
   nav.tabs button.active::after{transform:scaleX(1);}
   nav.tabs button:focus-visible{outline:2px solid var(--blue); outline-offset:2px; border-radius:4px;}
+  nav.tabs a.register-cta{
+    font-family:'Inter', sans-serif;
+    font-size:0.84rem;
+    font-weight:600;
+    color:#fff;
+    background:var(--blue);
+    text-decoration:none;
+    display:block;
+    padding:9px 18px;
+    border-radius:10px;
+    white-space:nowrap;
+    margin-left:8px;
+    transition:background .2s ease, transform .15s ease;
+    flex-shrink:0;
+  }
+  nav.tabs a.register-cta:hover{background:#0052CC; transform:translateY(-1px);}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -160,19 +177,30 @@
 
   /* ---------- Monthly ledger table ---------- */
   .table-scroll{overflow-x:auto; max-width:100%; border-radius:16px; box-shadow:var(--card-shadow); background:#fff;}
-  table{width:100%; border-collapse:collapse; font-size:0.88rem; min-width:680px;}
+  table{width:100%; border-collapse:collapse; font-size:0.88rem; min-width:780px;}
   thead th{
     text-align:right; font-weight:600; font-size:0.74rem;
     text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft);
-    padding:16px 16px; border-bottom:1px solid var(--line);
+    padding:16px 14px; border-bottom:1px solid var(--line);
   }
   thead th:first-child{text-align:left;}
-  tbody td{padding:13px 16px; text-align:right; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+  thead th.bonus-col{color:var(--gold);}
+  tbody td{padding:13px 14px; text-align:right; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
   tbody td:first-child{text-align:left; font-weight:600;}
   tbody tr:last-child td{border-bottom:none;}
   tbody tr.lift-zone{background:#F7FCF9;}
   td.loss{color:var(--red); font-weight:600;}
   td.gain{color:var(--green); font-weight:700;}
+  td.bonus{color:var(--gold); font-weight:600;}
+
+  .table-footer{
+    padding:16px 20px;
+    background:#FAFAFA;
+    border-top:1px solid var(--line);
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+  .table-footer .asterisk{color:var(--gold); font-weight:600;}
 
   .insight-banner{
     margin-top:36px;
@@ -186,17 +214,25 @@
   .insight-banner b{color:#fff;}
   .insight-banner .lbl{display:block; font-size:0.78rem; font-weight:600; color:#9A9AA0; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;}
 
-  /* ---------- Rules ---------- */
-  .rule-grid{
-    display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap:20px;
+  /* ---------- Bonus banner ---------- */
+  .bonus-banner{
+    margin-top:36px;
+    background:linear-gradient(135deg, #FFF8E7 0%, #FFF3D6 100%);
+    border:1px solid #E8D5A3;
+    border-radius:20px;
+    padding:28px 32px;
   }
+  .bonus-banner .icon{font-size:1.8rem; margin-bottom:12px;}
+  .bonus-banner h4{margin:0 0 12px; font-size:1.15rem; font-weight:700; color:#8B6914;}
+  .bonus-banner p{margin:0; font-size:0.96rem; color:#6B5A2E; line-height:1.6;}
+  .bonus-banner ul{margin:12px 0 0; padding-left:20px; font-size:0.94rem; color:#6B5A2E; line-height:1.7;}
+  .bonus-banner strong{color:#8B6914;}
+
+  /* ---------- Rules ---------- */
+  .rule-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
   .rule-card{
     background:#fff; border-radius:20px; box-shadow:var(--card-shadow);
     padding:30px 28px; transition:transform .25s ease, box-shadow .25s ease;
-    min-width:0;
-    max-width:100%;
   }
   .rule-card:hover{transform:translateY(-4px); box-shadow:var(--card-shadow-hover);}
   .rule-card .num{
@@ -208,10 +244,12 @@
   .rule-card li::marker{color:var(--blue);}
   .rule-card strong{color:var(--ink);}
 
-  .gift-table{width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; margin-top:16px; font-size:0.9rem;}
-  .gift-table td{padding:9px 0; border-bottom:1px solid var(--line); overflow-wrap:break-word; word-break:break-word;}
-  .gift-table tr:last-child td{border-bottom:none;}
-  .gift-table td:last-child{text-align:right; font-weight:700; color:var(--ink); white-space:nowrap;}
+  .rule-card.bonus-card{
+    background:linear-gradient(135deg, #FFF8E7 0%, #FFF3D6 100%);
+    border:1px solid #E8D5A3;
+  }
+  .rule-card.bonus-card .num{color:var(--gold);}
+  .rule-card.bonus-card li::marker{color:var(--gold);}
 
   .tip-banner{
     margin-top:24px; background:#EAF1FF; border-radius:16px; padding:20px 26px;
@@ -220,31 +258,29 @@
   .tip-banner b{color:var(--blue);}
 
   /* ---------- Why join ---------- */
-  .value-grid{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:24px;}
+  .value-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
   .value-card{
     background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
-    min-width:0; max-width:100%;
   }
   .value-card .icon-lbl{font-size:0.82rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
   .value-card h3{font-size:1.4rem; font-weight:800; margin:0 0 16px; letter-spacing:-0.015em;}
   .value-card ul{margin:0; padding-left:20px; color:var(--ink-soft); line-height:1.8; font-size:0.96rem;}
   .value-card strong{color:var(--ink);}
 
-  .compare-table{width:100%; max-width:100%; table-layout:fixed; border-collapse:collapse; margin-top:8px; font-size:0.93rem;}
+  .compare-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:0.93rem;}
   .compare-table th{
     text-align:left; font-weight:600; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em;
     color:var(--ink-soft); padding:14px 18px; border-bottom:1px solid var(--line);
-    overflow-wrap:break-word; word-break:break-word;
   }
-  .compare-table td{padding:14px 18px; border-bottom:1px solid var(--line); overflow-wrap:break-word; word-break:break-word;}
+  .compare-table td{padding:14px 18px; border-bottom:1px solid var(--line);}
   .compare-table tr.best{background:#F7FCF9;}
   .compare-table tr:last-child td{border-bottom:none;}
   .v-good{color:var(--green); font-weight:600;}
   .v-bad{color:var(--red); font-weight:600;}
   .v-warn{color:#B97A12; font-weight:600;}
 
-  .fit-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; margin-top:50px;}
-  .fit-card{border-radius:20px; padding:30px 32px; min-width:0; max-width:100%;}
+  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:50px;}
+  .fit-card{border-radius:20px; padding:30px 32px;}
   .fit-card.good{background:#F0FAF5;}
   .fit-card.bad{background:#FDF1F1;}
   .fit-card h4{margin:0 0 14px; font-size:1.15rem; font-weight:700;}
@@ -259,10 +295,9 @@
   .bottom-line p{font-size:1.05rem; color:var(--ink-soft); line-height:1.7;}
 
   /* ---------- Payment flow ---------- */
-  .flow{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px;}
+  .flow{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
   .stage{
     background:#fff; border-radius:24px; box-shadow:var(--card-shadow); padding:36px;
-    min-width:0; max-width:100%;
   }
   .stage .stage-eyebrow{font-size:0.8rem; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px;}
   .stage p{font-size:1.05rem; color:var(--ink-soft); margin:0; line-height:1.6;}
@@ -280,16 +315,26 @@
     text-align:center;
   }
 
+  /* Payment schedule highlight */
+  .payment-schedule{
+    margin-top:24px;
+    background:#F0F7FF;
+    border:1px solid #C5DCFA;
+    border-radius:16px;
+    padding:24px 28px;
+  }
+  .payment-schedule h4{margin:0 0 14px; font-size:1rem; font-weight:700; color:var(--blue);}
+  .payment-schedule .timeline{display:flex; gap:20px; flex-wrap:wrap;}
+  .payment-schedule .event{flex:1; min-width:140px;}
+  .payment-schedule .event .date{font-size:1.4rem; font-weight:800; color:var(--ink);}
+  .payment-schedule .event .label{font-size:0.82rem; color:var(--ink-soft); margin-top:4px;}
+
   footer{
     text-align:center; padding:60px 24px 70px; color:var(--ink-soft); font-size:0.85rem;
     border-top:1px solid var(--line); margin-top:20px;
   }
 
   /* ---------- Reveal on scroll ---------- */
-  /* Default: visible. JS adds .js-anim to <html> once confirmed working,
-     which is the only thing that switches these to the hidden start-state.
-     This guarantees content is never permanently invisible if JS/observer
-     behavior is unreliable inside an embedded iframe (e.g. Google Sites). */
   .reveal{opacity:1; transform:none;}
   html.js-anim .reveal{
     opacity:0; transform:translateY(24px);
@@ -312,19 +357,11 @@
     .fit-grid{grid-template-columns:1fr;}
     .flow{grid-template-columns:1fr;}
     .wrap{padding:0 16px;}
-
-    /* The ledger table is the one piece of content that's genuinely too
-       wide for a phone screen (7 columns of financial data). It scrolls
-       horizontally *within its own box only* — the box itself is capped
-       at 100% width, so it never drags the rest of the page sideways.
-       Everything else on the page stays in a single vertical column. */
-    .table-scroll{
-      border-radius:14px;
-      -webkit-overflow-scrolling:touch;
-    }
-    table{font-size:0.82rem; min-width:600px;}
+    .table-scroll{border-radius:14px; -webkit-overflow-scrolling:touch;}
+    table{font-size:0.82rem; min-width:700px;}
     thead th{padding:12px 10px;}
     tbody td{padding:10px 10px;}
+    .payment-schedule .timeline{flex-direction:column; gap:12px;}
   }
 </style>
 </head>
@@ -337,6 +374,7 @@
       <li><button data-target="chit-rules">Rules</button></li>
       <li><button data-target="why-join">Why Join</button></li>
       <li><button data-target="payment-works">How It Works</button></li>
+      <li><a href="/register" class="register-cta">Register</a></li>
     </ul>
   </nav>
 
@@ -355,8 +393,8 @@
         <div class="lbl">Months to complete</div>
       </div>
       <div class="figure">
-        <div class="num green">+18.9%</div>
-        <div class="lbl">Max return, Month 15</div>
+        <div class="num green">+20.8%*</div>
+        <div class="lbl">Max return with bonus</div>
       </div>
     </div>
   </header>
@@ -366,7 +404,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">The Ledger</div>
         <h2>Every month, mapped out.</h2>
-        <p>The first ten months cost you a premium. The last five pay you back.</p>
+        <p>The first ten months cost you a premium. The last five pay you back. <strong>Pay on time and earn an extra $500.</strong></p>
       </div>
 
       <div class="reveal">
@@ -374,82 +412,100 @@
           <table id="ledgerTable">
             <thead>
               <tr>
-                <th>Month</th><th>Monthly Chit</th><th>Post Lift</th><th>Amount Received</th><th>Total Paid</th><th>Net Position</th><th>% Interest</th>
+                <th>Month</th>
+                <th>Monthly Chit</th>
+                <th>Post Lift</th>
+                <th>Amount Received</th>
+                <th>Total Paid</th>
+                <th>Net Position</th>
+                <th>% Return</th>
+                <th class="bonus-col">With Bonus*</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td data-label="Month">1</td><td data-label="Monthly Chit">$2,100</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$35,000</td><td data-label="Net Position" class="loss">-$5,000</td><td data-label="% Interest" class="loss">-14.3%</td></tr>
-              <tr><td data-label="Month">2</td><td data-label="Monthly Chit">$2,050</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$34,700</td><td data-label="Net Position" class="loss">-$4,700</td><td data-label="% Interest" class="loss">-13.5%</td></tr>
-              <tr><td data-label="Month">3</td><td data-label="Monthly Chit">$2,000</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$34,350</td><td data-label="Net Position" class="loss">-$4,350</td><td data-label="% Interest" class="loss">-12.7%</td></tr>
-              <tr><td data-label="Month">4</td><td data-label="Monthly Chit">$1,950</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,950</td><td data-label="Net Position" class="loss">-$3,950</td><td data-label="% Interest" class="loss">-11.6%</td></tr>
-              <tr><td data-label="Month">5</td><td data-label="Monthly Chit">$1,900</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,500</td><td data-label="Net Position" class="loss">-$3,500</td><td data-label="% Interest" class="loss">-10.4%</td></tr>
-              <tr><td data-label="Month">6</td><td data-label="Monthly Chit">$1,850</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$33,000</td><td data-label="Net Position" class="loss">-$3,000</td><td data-label="% Interest" class="loss">-9.1%</td></tr>
-              <tr><td data-label="Month">7</td><td data-label="Monthly Chit">$1,800</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$32,450</td><td data-label="Net Position" class="loss">-$2,450</td><td data-label="% Interest" class="loss">-7.6%</td></tr>
-              <tr><td data-label="Month">8</td><td data-label="Monthly Chit">$1,750</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$31,850</td><td data-label="Net Position" class="loss">-$1,850</td><td data-label="% Interest" class="loss">-5.8%</td></tr>
-              <tr><td data-label="Month">9</td><td data-label="Monthly Chit">$1,700</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$31,200</td><td data-label="Net Position" class="loss">-$1,200</td><td data-label="% Interest" class="loss">-3.8%</td></tr>
-              <tr><td data-label="Month">10</td><td data-label="Monthly Chit">$1,650</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$30,500</td><td data-label="Net Position" class="loss">-$500</td><td data-label="% Interest" class="loss">-1.6%</td></tr>
-              <tr class="lift-zone"><td data-label="Month">11</td><td data-label="Monthly Chit">$1,600</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,000</td><td data-label="Total Paid">$29,750</td><td data-label="Net Position" class="gain">+$250</td><td data-label="% Interest" class="gain">+0.8%</td></tr>
-              <tr class="lift-zone"><td data-label="Month">12</td><td data-label="Monthly Chit">$1,550</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,200</td><td data-label="Total Paid">$28,950</td><td data-label="Net Position" class="gain">+$1,250</td><td data-label="% Interest" class="gain">+4.3%</td></tr>
-              <tr class="lift-zone"><td data-label="Month">13</td><td data-label="Monthly Chit">$1,500</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,500</td><td data-label="Total Paid">$28,100</td><td data-label="Net Position" class="gain">+$2,400</td><td data-label="% Interest" class="gain">+8.5%</td></tr>
-              <tr class="lift-zone"><td data-label="Month">14</td><td data-label="Monthly Chit">$1,450</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$30,800</td><td data-label="Total Paid">$27,200</td><td data-label="Net Position" class="gain">+$3,600</td><td data-label="% Interest" class="gain">+13.2%</td></tr>
-              <tr class="lift-zone"><td data-label="Month">15</td><td data-label="Monthly Chit">$1,400</td><td data-label="Post Lift">$2,350</td><td data-label="Amount Received">$31,200</td><td data-label="Total Paid">$26,250</td><td data-label="Net Position" class="gain">+$4,950</td><td data-label="% Interest" class="gain">+18.9%</td></tr>
+              <tr><td>1</td><td>$2,100</td><td>$2,350</td><td>$30,000</td><td>$35,000</td><td class="loss">-$5,000</td><td class="loss">-14.3%</td><td class="bonus">-12.9%*</td></tr>
+              <tr><td>2</td><td>$2,050</td><td>$2,350</td><td>$30,000</td><td>$34,700</td><td class="loss">-$4,700</td><td class="loss">-13.5%</td><td class="bonus">-12.1%*</td></tr>
+              <tr><td>3</td><td>$2,000</td><td>$2,350</td><td>$30,000</td><td>$34,350</td><td class="loss">-$4,350</td><td class="loss">-12.7%</td><td class="bonus">-11.2%*</td></tr>
+              <tr><td>4</td><td>$1,950</td><td>$2,350</td><td>$30,000</td><td>$33,950</td><td class="loss">-$3,950</td><td class="loss">-11.6%</td><td class="bonus">-10.2%*</td></tr>
+              <tr><td>5</td><td>$1,900</td><td>$2,350</td><td>$30,000</td><td>$33,500</td><td class="loss">-$3,500</td><td class="loss">-10.4%</td><td class="bonus">-9.0%*</td></tr>
+              <tr><td>6</td><td>$1,850</td><td>$2,350</td><td>$30,000</td><td>$33,000</td><td class="loss">-$3,000</td><td class="loss">-9.1%</td><td class="bonus">-7.6%*</td></tr>
+              <tr><td>7</td><td>$1,800</td><td>$2,350</td><td>$30,000</td><td>$32,450</td><td class="loss">-$2,450</td><td class="loss">-7.6%</td><td class="bonus">-6.0%*</td></tr>
+              <tr><td>8</td><td>$1,750</td><td>$2,350</td><td>$30,000</td><td>$31,850</td><td class="loss">-$1,850</td><td class="loss">-5.8%</td><td class="bonus">-4.2%*</td></tr>
+              <tr><td>9</td><td>$1,700</td><td>$2,350</td><td>$30,000</td><td>$31,200</td><td class="loss">-$1,200</td><td class="loss">-3.8%</td><td class="bonus">-2.2%*</td></tr>
+              <tr><td>10</td><td>$1,650</td><td>$2,350</td><td>$30,000</td><td>$30,500</td><td class="loss">-$500</td><td class="loss">-1.6%</td><td class="bonus">0.0%*</td></tr>
+              <tr class="lift-zone"><td>11</td><td>$1,600</td><td>$2,350</td><td>$30,000</td><td>$29,750</td><td class="gain">+$250</td><td class="gain">+0.8%</td><td class="bonus">+2.5%*</td></tr>
+              <tr class="lift-zone"><td>12</td><td>$1,550</td><td>$2,350</td><td>$30,200</td><td>$28,950</td><td class="gain">+$1,250</td><td class="gain">+4.3%</td><td class="bonus">+6.0%*</td></tr>
+              <tr class="lift-zone"><td>13</td><td>$1,500</td><td>$2,350</td><td>$30,500</td><td>$28,100</td><td class="gain">+$2,400</td><td class="gain">+8.5%</td><td class="bonus">+10.3%*</td></tr>
+              <tr class="lift-zone"><td>14</td><td>$1,450</td><td>$2,350</td><td>$30,800</td><td>$27,200</td><td class="gain">+$3,600</td><td class="gain">+13.2%</td><td class="bonus">+15.1%*</td></tr>
+              <tr class="lift-zone"><td>15</td><td>$1,400</td><td>$2,350</td><td>$31,200</td><td>$26,250</td><td class="gain">+$4,950</td><td class="gain">+18.9%</td><td class="bonus">+20.8%*</td></tr>
             </tbody>
           </table>
+          <div class="table-footer">
+            <span class="asterisk">*</span> <strong>With Bonus</strong> = includes $500 gift card for 100% on-time payments throughout the chit. Payments must be received by the <strong>10th of each month</strong>.
+          </div>
+        </div>
+
+        <div class="bonus-banner">
+          <div class="icon">🎁</div>
+          <h4>On-Time Payment Bonus: $500 Gift Card</h4>
+          <p>Every member who makes <strong>100% on-time payments</strong> throughout the entire 15-month chit receives a <strong>$500 gift card</strong> at the end.</p>
+          <ul>
+            <li><strong>Payment window:</strong> 1st – 10th of each month</li>
+            <li><strong>Payout date:</strong> 15th of each month</li>
+            <li><strong>Miss even one payment deadline?</strong> No bonus gift card</li>
+          </ul>
+        </div>
+
+        <div class="insight-banner">
+          <span class="lbl">Key Insight</span>
+          <b>Month 10 is the break-even point with the bonus.</b> If you pay on time, lifting in Month 10 means you pay exactly what you receive. Months 11–15 are pure profit territory, with returns up to 20.8% — better than almost any low-risk investment.
         </div>
       </div>
-
-      <div class="insight-banner reveal">
-        <span class="lbl">Key insight</span>
-        Months 1–10 — you're paying a premium for early liquidity. Months 11–15 flip to a gain, where patience pays off. <b>Maximum cost is capped at -14.3%.</b>
-      </div>
-
-
     </div>
   </section>
 
   <section id="chit-rules">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="eyebrow">House Rules</div>
-        <h2>Three rules. That's it.</h2>
+        <div class="eyebrow">Transparent &amp; Fair</div>
+        <h2>Simple rules, no surprises.</h2>
+        <p>Everyone knows how allocation works before joining.</p>
       </div>
 
-      <div class="rule-grid">
-        <div class="rule-card reveal">
-          <div class="num">01</div>
-          <h3>Submit preferences</h3>
+      <div class="rule-grid reveal">
+        <div class="rule-card">
+          <div class="num">RULE 01</div>
+          <h3>Submit Your Preferences</h3>
           <ul>
-            <li>Select your <strong>1st choice</strong> month</li>
-            <li>Select your <strong>2nd choice</strong> month</li>
-            <li>Submit before the fund starts</li>
+            <li>Every member submits <strong>1st and 2nd choice</strong> months before the chit starts</li>
+            <li>Organizer tries to accommodate everyone's preferences</li>
           </ul>
         </div>
-        <div class="rule-card reveal">
-          <div class="num">02</div>
-          <h3>Allocation priority</h3>
+
+        <div class="rule-card">
+          <div class="num">RULE 02</div>
+          <h3>Conflict Resolution</h3>
           <ul>
-            <li>Organizer tries to honor everyone's <strong>1st choice</strong></li>
-            <li>If it conflicts, you may get your <strong>2nd choice</strong></li>
-            <li>If both are taken, the organizer negotiates directly</li>
+            <li>If multiple members want the same month → <strong>lottery decides</strong></li>
+            <li>Winner gets their preferred month</li>
+            <li>Others are offered alternatives or enter lottery for remaining months</li>
           </ul>
         </div>
-        <div class="rule-card reveal">
-          <div class="num">03</div>
-          <h3>Gift card incentive</h3>
+
+        <div class="rule-card bonus-card">
+          <div class="num">RULE 03 — BONUS</div>
+          <h3>On-Time Payment Reward</h3>
           <ul>
-            <li>Got your choice → <strong>no gift card needed</strong></li>
-            <li>Moved months → <strong>$100–$500 gift card</strong></li>
+            <li>Pay by the <strong>10th of each month</strong></li>
+            <li>Payouts happen on the <strong>15th</strong></li>
+            <li><strong>100% on-time?</strong> Earn a $500 gift card at the end</li>
+            <li>Miss even one deadline = no bonus</li>
           </ul>
-          <table class="gift-table">
-            <tr><td>Minor adjustment</td><td>$100</td></tr>
-            <tr><td>Moderate sacrifice</td><td>$200–$300</td></tr>
-            <tr><td>Major sacrifice</td><td>$400–$500</td></tr>
-          </table>
         </div>
       </div>
 
       <div class="tip-banner reveal">
-        <b>Tip —</b> choose wisely. Picking two months that are far apart (e.g. Month 15 and Month 8) makes it more likely you'll land one without conflict.
+        <b>Pro tip:</b> The earlier you submit preferences and the more flexible you are, the better your chances of getting a month you want — and potentially earning a flexibility bonus!
       </div>
     </div>
   </section>
@@ -457,71 +513,59 @@
   <section id="why-join" class="bg-soft">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="eyebrow">The Case</div>
-        <h2>Why join this chit fund?</h2>
+        <div class="eyebrow">Why Join?</div>
+        <h2>Something for everyone.</h2>
+        <p>Whether you need cash now or want to grow your savings, there's a spot for you.</p>
       </div>
 
-      <div class="value-grid">
-        <div class="value-card reveal">
-          <div class="icon-lbl">Need money early</div>
-          <h3>We've got you covered.</h3>
+      <div class="value-grid reveal">
+        <div class="value-card">
+          <div class="icon-lbl">🚀 Need Money Early</div>
+          <h3>Quick access to $30K</h3>
           <ul>
-            <li>Get a <strong>$30,000 lump sum</strong> when you need it</li>
-            <li>No credit checks, no bank approvals, no paperwork</li>
-            <li>Cost is comparable to a personal loan (8–14%)</li>
-            <li>Still cheaper than a credit card (18–22%)</li>
+            <li>Get <strong>$30,000</strong> in months 1–3 when you need it most</li>
+            <li>Cost: <strong>12.9%–14.3%</strong> (with bonus) — often cheaper than personal loans</li>
+            <li><strong>No credit check</strong>, no bank approval</li>
+            <li>Perfect for emergencies, home deposits, or business needs</li>
           </ul>
         </div>
-        <div class="value-card reveal">
-          <div class="icon-lbl">Can wait</div>
-          <h3>Earn more than savings ever will.</h3>
+
+        <div class="value-card">
+          <div class="icon-lbl">📈 Want to Save &amp; Earn</div>
+          <h3>Up to 20.8% return</h3>
           <ul>
-            <li>Month 11 → <strong>+0.8%</strong></li>
-            <li>Month 12 → <strong>+4.3%</strong></li>
-            <li>Month 13 → <strong>+8.5%</strong></li>
-            <li>Month 14 → <strong>+13.2%</strong></li>
-            <li>Month 15 → <strong>+18.9%</strong></li>
+            <li>Wait until months 11–15 and <strong>earn money</strong></li>
+            <li>Month 15 return: <strong>+20.8%</strong> (with on-time bonus)</li>
+            <li>Better than savings accounts (4–5%), term deposits (5–6%)</li>
+            <li>Low risk — community-backed, not market-dependent</li>
           </ul>
         </div>
       </div>
 
-      <div class="reveal" style="margin-top:50px;">
-        <table class="compare-table">
-          <thead><tr><th>Option</th><th>Interest / cost</th><th>Verdict</th></tr></thead>
-          <tbody>
-            <tr><td>Credit card</td><td>18–22% p.a.</td><td class="v-bad">Expensive</td></tr>
-            <tr><td>Personal loan</td><td>8–15% p.a.</td><td class="v-warn">Paperwork + approval</td></tr>
-            <tr><td>Payday loan</td><td>40%+ p.a.</td><td class="v-bad">Avoid</td></tr>
-            <tr><td>Savings account</td><td>4–5% p.a.</td><td>Safe, but low</td></tr>
-            <tr class="best"><td>This chit (early lift)</td><td>10–14% cost</td><td class="v-good">No approval needed</td></tr>
-            <tr class="best"><td>This chit (late lift)</td><td>+1% to +19% gain</td><td class="v-good">Beats savings</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="fit-grid">
-        <div class="fit-card good reveal">
-          <h4>Good fit</h4>
+      <div class="fit-grid reveal">
+        <div class="fit-card good">
+          <h4>✅ Great fit if you...</h4>
           <ul>
-            <li>Need a lump sum in the next 15 months</li>
-            <li>Want forced savings discipline</li>
-            <li>Can commit to monthly payments</li>
-            <li>Trust the group members</li>
+            <li>Have steady income and can commit to monthly payments</li>
+            <li>Need a lump sum without bank hassle</li>
+            <li>Want better returns than a savings account</li>
+            <li>Value community-based financial support</li>
           </ul>
         </div>
-        <div class="fit-card bad reveal">
-          <h4>Not ideal</h4>
+        <div class="fit-card bad">
+          <h4>❌ Not ideal if you...</h4>
           <ul>
-            <li>Need money today (go to a bank)</li>
-            <li>Can't commit to 15 months of payments</li>
-            <li>Prefer zero-risk investments only</li>
+            <li>Have unpredictable income</li>
+            <li>Might miss payments (no bonus + potential issues)</li>
+            <li>Need instant access to all your money</li>
+            <li>Prefer fully liquid investments</li>
           </ul>
         </div>
       </div>
 
       <div class="bottom-line reveal">
-        <h3>The bottom line</h3>
-        <p>Need money early? Pay a small premium — still cheaper than a credit card. Can wait? Earn up to 18.9% — better than any bank. Everyone wins: early members get liquidity, late members earn returns, the organizer manages it fairly.</p>
+        <h3>The bottom line?</h3>
+        <p>This is about community — family and friends helping each other access lump sums for life's big moments, planned or not. It's forced savings that actually works. And even if you take the first month? Offset accounts and sensible investing mean you won't really lose — you're just paying a small premium for instant access to your community's collective support.</p>
       </div>
     </div>
   </section>
@@ -529,104 +573,66 @@
   <section id="payment-works">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="eyebrow">Mechanics</div>
-        <h2>How payment works.</h2>
+        <div class="eyebrow">How It Works</div>
+        <h2>Two simple phases.</h2>
+        <p>Before you lift, you pay less. After you lift, you pay a fixed amount.</p>
       </div>
 
-      <div class="flow">
-        <div class="stage reveal">
-          <div class="stage-eyebrow">Before you lift</div>
-          <p>Pay the <strong>Monthly Chit</strong> amount — a discounted rate that rises the longer you wait to lift.</p>
+      <div class="flow reveal">
+        <div class="stage">
+          <div class="stage-eyebrow">Phase 1 — Before Your Lift</div>
+          <p>Each month you pay the <strong>"Monthly Chit"</strong> amount — a discounted rate that decreases over time. The earlier the month, the higher the chit payment.</p>
         </div>
-        <div class="stage reveal">
-          <div class="stage-eyebrow">After you lift</div>
-          <p>Pay the flat <strong>Post Lift</strong> amount of $2,350 for every remaining month.</p>
+        <div class="stage">
+          <div class="stage-eyebrow">Phase 2 — After Your Lift</div>
+          <p>Once you receive your payout, you pay the fixed <strong>"Post Lift"</strong> amount of <strong>$2,350/month</strong> for all remaining months until the chit ends.</p>
+        </div>
+      </div>
+
+      <div class="payment-schedule reveal">
+        <h4>📅 Monthly Schedule</h4>
+        <div class="timeline">
+          <div class="event">
+            <div class="date">1st – 10th</div>
+            <div class="label">Payment Window</div>
+          </div>
+          <div class="event">
+            <div class="date">15th</div>
+            <div class="label">Payout to Lifter</div>
+          </div>
         </div>
       </div>
 
       <div class="formula reveal">
-        Total Paid = Σ (Chit payments up to lift month) + ($2,350 × remaining months)
+        Total Paid = Sum(Monthly Chit × months before lift)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ (Post Lift × months after lift)
       </div>
     </div>
   </section>
 
-  <footer>15-Month Chit Fund — Updated June 2026 — Submit your 2 preferences before the deadline</footer>
+  <footer>
+    <p>15-Month Community Chit Fund &nbsp;•&nbsp; Questions? Contact the organizer.</p>
+  </footer>
 
   <script>
-    // The data table is plain static HTML (not built by JS), so it always
-    // renders correctly even if scripts are blocked, delayed, or behave
-    // inconsistently inside an embedded/mobile context.
-
-    // ---- Nav: scrollIntoView instead of anchor hashes ----
-    // Google Sites embeds this page in a sandboxed iframe and intercepts
-    // normal <a href="#id"> clicks as outbound navigation, triggering a
-    // consent/leave-site prompt. scrollIntoView never touches location.hash
-    // or history, so there's nothing for the host page to intercept.
-    (function () {
-      var buttons = document.querySelectorAll('#tabNav button[data-target]');
-      var sections = Array.prototype.map.call(buttons, function (b) {
-        return document.getElementById(b.getAttribute('data-target'));
-      });
-
-      function setActive(btn) {
-        buttons.forEach(function (b) { b.classList.remove('active'); });
+    // Tab navigation
+    document.querySelectorAll('nav.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-      }
-
-      buttons.forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          var target = document.getElementById(btn.getAttribute('data-target'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setActive(btn);
-          }
-        });
+        const target = document.getElementById(btn.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
+    });
 
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            var id = entry.target.id;
-            var match = document.querySelector('#tabNav button[data-target="' + id + '"]');
-            if (match) setActive(match);
-          }
-        });
-      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-
-      sections.forEach(function (s) { if (s) observer.observe(s); });
-    })();
-
-    // ---- Scroll reveal ----
-    (function () {
-      var revealEls = document.querySelectorAll('.reveal');
+    // Scroll-triggered reveal (with fallback for embedded iframes)
+    if ('IntersectionObserver' in window) {
       document.documentElement.classList.add('js-anim');
-
-      // Fallback: if IntersectionObserver doesn't fire (can happen inside
-      // sandboxed iframes like Google Sites, where viewport/intersection
-      // reporting can be unreliable), force everything visible after a
-      // short delay so content is never stuck at opacity:0.
-      var fallbackTimer = setTimeout(function () {
-        revealEls.forEach(function (el) { el.classList.add('in'); });
-      }, 1200);
-
-      if (!('IntersectionObserver' in window)) {
-        clearTimeout(fallbackTimer);
-        revealEls.forEach(function (el) { el.classList.add('in'); });
-        return;
-      }
-
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.01, rootMargin: '0px 0px 200px 0px' });
-      revealEls.forEach(function (el) { io.observe(el); });
-    })();
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
   </script>
-
 </body>
 </html>
